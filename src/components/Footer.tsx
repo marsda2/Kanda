@@ -8,6 +8,12 @@ export default function Footer() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
+  const [mounted, setMounted] = useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const isOpen = () => {
     const now = new Date();
     const hour = now.getHours();
@@ -46,7 +52,7 @@ export default function Footer() {
             Calle J #460 entre 21 y 23, Vedado.
           </p>
           <p className="text-sm font-body text-[#1a1c1c]/70">
-            Hoy estamos {isOpen() ? <span className="text-green-600 font-bold">abiertos</span> : <span className="text-red-600 font-bold">cerrados</span>} (9 a.m. – 9 p.m.)
+            Hoy estamos {mounted ? (isOpen() ? <span className="text-green-600 font-bold">abiertos</span> : <span className="text-red-600 font-bold">cerrados</span>) : <span className="opacity-0">cerrados</span>} (9 a.m. – 9 p.m.)
           </p>
           <div className="flex gap-4">
             <a className="text-[#1a1c1c]/70 hover:opacity-80 transition-opacity" href="#">Instagram</a>
