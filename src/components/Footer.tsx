@@ -1,5 +1,6 @@
+'use client';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ArrowRight, Check, Loader2 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
@@ -55,16 +56,16 @@ export default function Footer() {
           <div className="space-y-4">
             <h5 className="font-headline font-bold text-xs uppercase tracking-widest text-[#173018]">Menu</h5>
             <ul className="space-y-2 text-sm font-body text-[#1a1c1c]/70">
-              <li><Link to="/" className="hover:text-[#705d00] transition-colors">Matcha & Teas</Link></li>
-              <li><Link to="/" className="hover:text-[#705d00] transition-colors">Coffee</Link></li>
-              <li><Link to="/" className="hover:text-[#705d00] transition-colors">Treats</Link></li>
+              <li><Link href="/" className="hover:text-[#705d00] transition-colors">Matcha & Teas</Link></li>
+              <li><Link href="/" className="hover:text-[#705d00] transition-colors">Coffee</Link></li>
+              <li><Link href="/" className="hover:text-[#705d00] transition-colors">Treats</Link></li>
             </ul>
           </div>
           <div className="space-y-4">
             <h5 className="font-headline font-bold text-xs uppercase tracking-widest text-[#173018]">Connect</h5>
             <ul className="space-y-2 text-sm font-body text-[#1a1c1c]/70">
-              <li><Link to="/privacy" className="hover:text-[#705d00] transition-colors">Privacy</Link></li>
-              <li><Link to="/terms" className="hover:text-[#705d00] transition-colors">Terms</Link></li>
+              <li><Link href="/privacy" className="hover:text-[#705d00] transition-colors">Privacy</Link></li>
+              <li><Link href="/terms" className="hover:text-[#705d00] transition-colors">Terms</Link></li>
             </ul>
           </div>
         </div>

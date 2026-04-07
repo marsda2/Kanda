@@ -1,21 +1,23 @@
+'use client';
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
+  const pathname = usePathname();
 
   const getLinkClass = (path: string) => {
-    return location.pathname === path
+    return pathname === path
       ? "text-[#173018] font-bold border-b-2 border-[#705d00] pb-1 font-body text-sm"
       : "text-[#1a1c1c]/60 font-medium hover:text-[#705d00] transition-all duration-200 font-body text-sm";
   };
 
   const getMobileLinkClass = (path: string) => {
-    return location.pathname === path
+    return pathname === path
       ? "text-[#705d00] font-headline font-bold text-4xl uppercase tracking-tight"
       : "text-[#173018] font-headline font-bold text-4xl uppercase tracking-tight";
   };
@@ -30,9 +32,9 @@ export default function Header() {
           
           {/* Desktop Nav */}
           <div className="hidden md:flex space-x-8 items-center">
-            <Link className={getLinkClass("/")} to="/">Menu</Link>
-            <Link className={getLinkClass("/locations")} to="/locations">Locations</Link>
-            <Link className={getLinkClass("/our-story")} to="/our-story">Our Story</Link>
+            <Link className={getLinkClass("/")} href="/">Menu</Link>
+            <Link className={getLinkClass("/locations")} href="/locations">Locations</Link>
+            <Link className={getLinkClass("/our-story")} href="/our-story">Our Story</Link>
           </div>
 
           <div className="hidden md:block">
@@ -74,9 +76,9 @@ export default function Header() {
             </div>
             
             <div className="flex flex-col space-y-10 text-center mt-10">
-              <Link onClick={() => setIsMobileMenuOpen(false)} className={getMobileLinkClass("/")} to="/">Menu</Link>
-              <Link onClick={() => setIsMobileMenuOpen(false)} className={getMobileLinkClass("/locations")} to="/locations">Locations</Link>
-              <Link onClick={() => setIsMobileMenuOpen(false)} className={getMobileLinkClass("/our-story")} to="/our-story">Our Story</Link>
+              <Link onClick={() => setIsMobileMenuOpen(false)} className={getMobileLinkClass("/")} href="/">Menu</Link>
+              <Link onClick={() => setIsMobileMenuOpen(false)} className={getMobileLinkClass("/locations")} href="/locations">Locations</Link>
+              <Link onClick={() => setIsMobileMenuOpen(false)} className={getMobileLinkClass("/our-story")} href="/our-story">Our Story</Link>
               
               <div className="pt-12">
                 <button 
