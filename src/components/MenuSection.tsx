@@ -240,19 +240,19 @@ const featuredItems = [
     title: "Toast Benedicto",
     description: "Pan rústico tostado, huevo poché, salsa holandesa y un toque de hierbas frescas.",
     price: "$1600",
-    image: "/images/dishes/toast-benedicto.jpg"
+    image: "/toastBenedicto.png"
   },
   {
     title: "Matcha Latte",
     description: "El equilibrio perfecto entre el dulzor y el sabor umami del matcha premium.",
     price: "$1200",
-    image: "/images/dishes/matcha-latte.jpg"
+    image: "/matchaLatte.png"
   },
   {
     title: "Croissant Pistachio",
     description: "Crujiente croissant relleno de crema de pistacho artesanal.",
     price: "$1900",
-    image: "/images/dishes/croissant-pistachio.jpg"
+    image: "/croissant.png"
   }
 ];
 

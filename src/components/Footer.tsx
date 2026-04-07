@@ -1,12 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Check, Loader2 } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 
 export default function Footer() {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
   const isOpen = () => {
     const now = new Date();
     const hour = now.getHours();
     return hour >= 9 && hour < 21;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+
+    setStatus('loading');
+    try {
+      const { error } = await supabase
+        .from('kanda_club')
+        .insert([{ email }]);
+
+      if (error) throw error;
+      setStatus('success');
+      setEmail('');
+      setTimeout(() => setStatus('idle'), 3000);
+    } catch (err) {
+      console.error('Error joining Kanda Club:', err);
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 3000);
+    }
   };
 
   return (
@@ -45,12 +70,36 @@ export default function Footer() {
         </div>
         <div className="w-full md:w-auto">
           <h5 className="font-headline font-bold text-xs uppercase tracking-widest mb-6 text-[#173018]">Suscríbete</h5>
-          <div className="relative">
-            <input className="bg-transparent border-b border-[#1a1c1c]/20 py-2 w-full md:w-64 focus:outline-none focus:border-[#705d00] transition-colors font-body text-sm" placeholder="email@kanda.com" type="email"/>
-            <button className="absolute right-0 bottom-2">
-              <ArrowRight className="text-[#705d00] w-5 h-5" />
+          <form className="relative" onSubmit={handleSubmit}>
+            <input 
+              className="bg-transparent border-b border-[#1a1c1c]/20 py-2 w-full md:w-64 focus:outline-none focus:border-[#705d00] transition-colors font-body text-sm" 
+              placeholder="email@kanda.com" 
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={status === 'loading'}
+              required
+            />
+            <button 
+              className="absolute right-0 bottom-2 disabled:opacity-50"
+              type="submit"
+              disabled={status === 'loading' || status === 'success'}
+            >
+              {status === 'loading' ? (
+                <Loader2 className="w-5 h-5 animate-spin text-[#705d00]" />
+              ) : status === 'success' ? (
+                <Check className="w-5 h-5 text-green-600" />
+              ) : (
+                <ArrowRight className="text-[#705d00] w-5 h-5" />
+              )}
             </button>
-          </div>
+            {status === 'error' && (
+              <p className="text-[10px] text-red-500 mt-1 absolute left-0 -bottom-4">Error al unirse. Revisa tu conexión.</p>
+            )}
+            {status === 'success' && (
+              <p className="text-[10px] text-green-600 mt-1 absolute left-0 -bottom-4">¡Bienvenido al Kanda Club!</p>
+            )}
+          </form>
         </div>
       </div>
       <div className="border-t border-[#1a1c1c]/10 py-6 text-center">
