@@ -2,13 +2,37 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Loader2, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { supabase } from '../lib/supabase';
 
 export default function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const pathname = usePathname();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+
+    setStatus('loading');
+    try {
+      const { error } = await supabase
+        .from('kanda_club')
+        .insert([{ email }]);
+
+      if (error) throw error;
+      setStatus('success');
+      setEmail('');
+      setTimeout(() => setStatus('idle'), 3000);
+    } catch (err) {
+      console.error('Error joining Kanda Club:', err);
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 3000);
+    }
+  };
 
   const getLinkClass = (path: string) => {
     return pathname === path
@@ -107,11 +131,34 @@ export default function Header() {
             </p>
             <p className="font-headline font-bold text-xl text-[#705d00]">Tómate 9 y el 10 va por Kanda.</p>
             
-            <div className="pt-6 border-t border-[#173018]/10">
+            <form className="pt-6 border-t border-[#173018]/10" onSubmit={handleSubmit}>
               <p className="text-xs uppercase tracking-widest font-bold text-[#173018] mb-4">Suscríbete para novedades</p>
-              <input type="email" placeholder="Tu email" className="w-full p-3 rounded-md border border-[#173018]/20 mb-4" />
-              <button className="w-full bg-[#173018] text-white py-3 rounded-md font-bold uppercase text-xs tracking-widest">Enviar</button>
-            </div>
+              <input 
+                type="email" 
+                placeholder="Tu email" 
+                className="w-full p-3 rounded-md border border-[#173018]/20 mb-4 focus:outline-none focus:border-[#705d00] transition-colors" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={status === 'loading'}
+                required
+              />
+              <button 
+                type="submit"
+                disabled={status === 'loading' || status === 'success'}
+                className="w-full bg-[#173018] text-white py-3 rounded-md font-bold uppercase text-xs tracking-widest disabled:opacity-50 flex items-center justify-center gap-2 transition-all hover:bg-[#2D472C]"
+              >
+                {status === 'loading' ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : status === 'success' ? (
+                  <>¡Listo! <Check className="w-5 h-5 text-green-400" /></>
+                ) : (
+                  'Enviar'
+                )}
+              </button>
+              {status === 'error' && (
+                <p className="text-[10px] text-red-500 mt-2">Error al unirse. Revisa tu conexión.</p>
+              )}
+            </form>
             
             <button onClick={() => setIsModalOpen(false)} className="text-xs text-[#434841]/60 underline">Cerrar</button>
           </div>
