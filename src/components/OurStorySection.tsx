@@ -80,9 +80,9 @@ export default function OurStorySection() {
         >
           {/* Instrucción: Reemplaza estas URLs con los enlaces reales de las fotos de tu Instagram */}
           {[
-            "https://www.instagram.com/reel/DW2PQCCCZUc/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
-            "https://www.instagram.com/reel/DWugTr5ibtR/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
-            "https://www.instagram.com/reel/DVj4YujCcZ5/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+            "https://www.instagram.com/reel/DW2PQCCCZUc",
+            "https://www.instagram.com/reel/DWugTr5ibtR",
+            "https://www.instagram.com/reel/DVj4YujCcZ5"
           ].map((url, idx) => (
             <div key={idx} className="w-full max-w-[328px] overflow-hidden rounded-2xl shadow-sm border border-[#173018]/10 bg-white">
               <InstagramEmbed url={url} width="100%" />
