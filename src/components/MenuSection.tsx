@@ -1,5 +1,7 @@
 'use client';
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
+import { Star, WheatOff, Leaf } from 'lucide-react';
 
 const menuData = [
   {
@@ -10,10 +12,10 @@ const menuData = [
         title: "Toasts",
         description: "Pan rústico tostado con toque verde y aceite de oliva",
         items: [
-          { name: "Aguacate y Huevos", price: "$1500", description: "2 huevos, aguacate, rúcula, tomate, lechuga, relish, mayonesa saborizada" },
-          { name: "Benedicto", price: "$1900", description: "Huevos, salsa holandesa, queso gouda, lechuga, tomate, rúcula" },
+          { name: "Aguacate y Huevos", price: "$1500", description: "2 huevos, aguacate, rúcula, tomate, lechuga, relish, mayonesa saborizada", isGF: true },
+          { name: "Benedicto", price: "$1900", description: "Huevos, salsa holandesa, queso gouda, lechuga, tomate, rúcula", isFeatured: true },
           { name: "Salame, Queso y Huevos", price: "$2250", description: "Salame, huevo, queso gouda, rúcula, tomate" },
-          { name: "Avocado Toast", price: "$1000", description: "Aguacate, rúcula, tomate, lechuga, relish, mayonesa saborizada" },
+          { name: "Avocado Toast", price: "$1000", description: "Aguacate, rúcula, tomate, lechuga, relish, mayonesa saborizada", isVegan: true },
           { name: "Aguacate y Serrano", price: "$2000", description: "Aguacate, jamón serrano, rúcula, tomate, lechuga, crema balsamica" },
           { name: "Caprese", price: "$1500", description: "Tomate, mozzarella, albahaca, aceite de oliva" },
         ]
@@ -96,7 +98,7 @@ const menuData = [
         items: [
           { name: "Waffle Natural c/frutas y miel", price: "$1300" },
           { name: "Waffle Natural Salado", price: "$1500", description: "Con Jamón Ibérico o Jamón York y queso crema, rúcula y tomate" },
-          { name: "Waffle Carbonara", price: "$1650", description: "Relleno de salsa carbonara con bacon. Topping de: Jamón ibérico o Jamón York y queso crema, rúcula y tomate" },
+          { name: "Waffle Carbonara", price: "$1650", description: "Relleno de salsa carbonara con bacon. Topping de: Jamón ibérico o Jamón York y queso crema, rúcula y tomate", isFeatured: true },
           { name: "Waffle Ragú de Cerdo", price: "$1650", description: "Relleno de ragú de cerdo, con topping de rúcula y tomate" }
         ]
       },
@@ -126,7 +128,7 @@ const menuData = [
           { name: "Latte", price: "$700" },
           { name: "Caramel Macchiato", price: "$750" },
           { name: "Mocha | Chai Latte", price: "$750" },
-          { name: "Matcha Latte | Taro Latte", price: "$850" },
+          { name: "Matcha Latte | Taro Latte", price: "$850", isFeatured: true },
           { name: "Carajillo", price: "$1000" }
         ]
       },
@@ -215,7 +217,12 @@ const ExpandableItemList = ({ items, isSubcategory = false }: { items: any[], is
         {displayedItems.map((item, idx) => (
           <div key={idx} className="flex justify-between items-start group border-b border-[#173018]/10 pb-4 hover:border-[#173018] transition-colors">
             <div className="pr-4">
-              <h4 className={`font-body font-semibold text-[#173018] uppercase tracking-wide ${isSubcategory ? 'text-base' : 'text-lg'}`}>{item.name}</h4>
+              <div className="flex items-center gap-2">
+                <h4 className={`font-body font-semibold text-[#173018] uppercase tracking-wide ${isSubcategory ? 'text-base' : 'text-lg'}`}>{item.name}</h4>
+                {item.isFeatured && <Star className="w-4 h-4 text-[#705d00] fill-[#705d00]" />}
+                {item.isGF && <WheatOff className="w-4 h-4 text-[#c3c8be]" />}
+                {item.isVegan && <Leaf className="w-4 h-4 text-[#c3c8be]" />}
+              </div>
               {item.description && <p className="font-body font-light text-[#434841] text-sm mt-1">{item.description}</p>}
             </div>
             <span className={`font-headline text-[#173018] whitespace-nowrap ${isSubcategory ? 'text-base' : 'text-lg'}`}>{item.price}</span>
@@ -261,7 +268,13 @@ export default function MenuSection() {
   return (
     <section className="mb-32" id="menu">
       <div className="max-w-7xl mx-auto px-8">
-        <header className="mb-24 flex flex-col md:flex-row items-end justify-between gap-8">
+        <motion.header 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="mb-24 flex flex-col md:flex-row items-end justify-between gap-8"
+        >
           <div className="max-w-2xl">
             <span className="text-[#705d00] font-bold tracking-widest uppercase text-xs mb-4 block">La pausa perfecta</span>
             <h1 className="font-headline font-extrabold text-7xl md:text-9xl text-[#173018] leading-none -tracking-widest">
@@ -273,10 +286,16 @@ export default function MenuSection() {
               "Un rinconcito de calma en medio del ruido. Tu cafecito perfecto para recargar energías y seguir tu día con flow."
             </p>
           </div>
-        </header>
+        </motion.header>
 
         {/* Featured Items Carousel */}
-        <div className="mb-24">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="mb-24"
+        >
           <div className="flex items-center gap-4 mb-8">
             <h2 className="font-headline font-bold text-3xl text-[#173018] uppercase tracking-tight">Recomendaciones</h2>
             <div className="h-[1px] bg-gradient-to-r from-[#173018]/20 flex-grow"></div>
@@ -297,11 +316,17 @@ export default function MenuSection() {
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
         
         <div className="space-y-24">
           {menuData.map((category, idx) => (
-            <div key={idx}>
+            <motion.div 
+              key={idx}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6 }}
+            >
               <div className="flex items-center gap-4 mb-8">
                 <h2 className="font-headline font-bold text-4xl text-[#173018] uppercase tracking-tight">{category.title}</h2>
                 <div className="h-[1px] bg-gradient-to-r from-[#173018]/20 flex-grow"></div>
@@ -325,7 +350,7 @@ export default function MenuSection() {
                   ))}
                 </div>
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
