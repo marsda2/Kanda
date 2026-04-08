@@ -300,21 +300,23 @@ export default function MenuSection() {
             <h2 className="font-headline font-bold text-3xl text-[#173018] uppercase tracking-tight">Recomendaciones</h2>
             <div className="h-[1px] bg-gradient-to-r from-[#173018]/20 flex-grow"></div>
           </div>
-          <div className="flex overflow-x-auto pb-8 -mx-8 px-8 gap-6 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            {featuredItems.map((item, idx) => (
-              <div key={idx} className="min-w-[340px] md:min-w-[500px] flex flex-row bg-[#eeeeee] rounded-2xl overflow-hidden snap-center shadow-sm h-[180px] md:h-[220px]">
-                <div className="w-2/5 md:w-5/12 h-full overflow-hidden shrink-0">
-                  <img src={item.image} alt={item.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" referrerPolicy="no-referrer" />
-                </div>
-                <div className="w-3/5 md:w-7/12 p-5 md:p-6 flex flex-col justify-center space-y-2 md:space-y-3">
-                  <div className="flex flex-col xl:flex-row xl:justify-between xl:items-start gap-1 xl:gap-4">
-                    <h4 className="font-headline font-bold text-lg md:text-xl text-[#173018] leading-tight">{item.title}</h4>
-                    <span className="font-headline font-bold text-[#705d00] whitespace-nowrap">{item.price}</span>
+          <div className="flex overflow-hidden pb-8 -mx-8 px-8 w-[calc(100%+4rem)] group">
+            <div className="flex items-center gap-6 w-max animate-marquee hover:[animation-play-state:paused]">
+              {[...featuredItems, ...featuredItems].map((item, idx) => (
+                <div key={idx} className="w-[340px] md:w-[500px] flex flex-row bg-[#eeeeee] rounded-2xl overflow-hidden shadow-sm h-[180px] md:h-[220px] shrink-0">
+                  <div className="w-2/5 md:w-5/12 h-full overflow-hidden shrink-0">
+                    <img src={item.image} alt={item.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" referrerPolicy="no-referrer" />
                   </div>
-                  <p className="font-body text-xs md:text-sm text-[#434841] line-clamp-3 md:line-clamp-4">{item.description}</p>
+                  <div className="w-3/5 md:w-7/12 p-5 md:p-6 flex flex-col justify-center space-y-2 md:space-y-3">
+                    <div className="flex flex-col xl:flex-row xl:justify-between xl:items-start gap-1 xl:gap-4">
+                      <h4 className="font-headline font-bold text-lg md:text-xl text-[#173018] leading-tight">{item.title}</h4>
+                      <span className="font-headline font-bold text-[#705d00] whitespace-nowrap">{item.price}</span>
+                    </div>
+                    <p className="font-body text-xs md:text-sm text-[#434841] line-clamp-3 md:line-clamp-4">{item.description}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </motion.div>
         

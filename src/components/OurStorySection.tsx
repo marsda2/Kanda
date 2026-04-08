@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 
 export default function OurStorySection() {
   return (
-    <section className="py-24" id="our-story">
+    <section className="py-24 overflow-hidden" id="our-story">
       <div className="max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-16 items-center">
         <motion.div 
           initial={{ opacity: 0, x: -30 }}
