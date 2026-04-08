@@ -58,7 +58,7 @@ export default function Footer() {
             <a href="mailto:Kandahoreca@gmail.com" className="hover:text-[#705d00] transition-colors">Kandahoreca@gmail.com</a>
           </p>
           <div className="flex gap-4">
-            <a className="text-[#1a1c1c]/70 hover:text-[#705d00] transition-colors" href="#">Instagram</a>
+            <a className="text-[#1a1c1c]/70 hover:text-[#705d00] transition-colors" href="https://www.instagram.com/kanda_vedado/" target="_blank" rel="noopener noreferrer">Instagram</a>
           </div>
         </div>
         <div className="flex flex-wrap gap-x-20 gap-y-12">
