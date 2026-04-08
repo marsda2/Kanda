@@ -1,8 +1,11 @@
 'use client';
 import React, { useEffect } from 'react';
 import { motion } from 'motion/react';
+<<<<<<< HEAD
 import { Instagram } from 'lucide-react';
 import Script from 'next/script';
+=======
+>>>>>>> parent of df384ac8 (Feature: Added asymmetric Instagram 'The Vibe' grid to OurStory section)
 
 export default function OurStorySection() {
   return (
@@ -51,6 +54,7 @@ export default function OurStorySection() {
           </div>
         </motion.div>
       </div>
+<<<<<<< HEAD
 
       {/* Instagram Grid Section */}
       <div className="max-w-7xl mx-auto px-8 mt-32">
@@ -90,6 +94,8 @@ export default function OurStorySection() {
           ))}
         </motion.div>
       </div>
+=======
+>>>>>>> parent of df384ac8 (Feature: Added asymmetric Instagram 'The Vibe' grid to OurStory section)
     </section>
   );
 }
