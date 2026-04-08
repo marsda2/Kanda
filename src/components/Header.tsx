@@ -50,9 +50,9 @@ export default function Header() {
     <>
       <nav className="fixed top-0 w-full z-50 bg-[#f9f9f9]/80 backdrop-blur-md transition-colors duration-300">
         <div className="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto w-full">
-          <div className="text-2xl font-bold tracking-tighter text-[#173018] font-headline uppercase">
-            Kanda
-          </div>
+          <Link href="/" className="flex-shrink-0">
+            <img src="/KandaLogoHorizontal.png" alt="Kanda Logo" className="h-6 md:h-8 w-auto object-contain" />
+          </Link>
           
           {/* Desktop Nav */}
           <div className="hidden md:flex space-x-8 items-center">
@@ -91,8 +91,8 @@ export default function Header() {
             className="fixed inset-0 z-[110] bg-[#f9f9f9] flex flex-col p-8"
           >
             <div className="flex justify-between items-center mb-12">
-              <div className="text-2xl font-bold tracking-tighter text-[#173018] font-headline uppercase">
-                Kanda
+              <div className="flex-shrink-0">
+                <img src="/KandaLogoHorizontal.png" alt="Kanda Logo" className="h-8 w-auto object-contain" />
               </div>
               <button onClick={() => setIsMobileMenuOpen(false)} className="text-[#173018] p-2">
                 <X className="w-8 h-8" />

@@ -45,9 +45,9 @@ export default function Footer() {
     <footer className="bg-[#eeeeee] w-full rounded-t-[2rem] mt-20 transition-all duration-300">
       <div className="flex flex-col md:flex-row justify-between items-start gap-12 px-12 pt-16 pb-12 max-w-7xl mx-auto w-full">
         <div className="space-y-6">
-          <div className="text-xl font-bold text-[#173018] font-headline uppercase tracking-tighter">
-            Kanda
-          </div>
+          <Link href="/" className="inline-block">
+            <img src="/KandaLogoHorizontal.png" alt="Kanda Logo" className="h-8 w-auto object-contain" />
+          </Link>
           <p className="max-w-xs text-sm font-body text-[#1a1c1c]/70 leading-relaxed">
             Calle J #460 entre 21 y 23, Vedado.
           </p>
