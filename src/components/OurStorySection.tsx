@@ -1,17 +1,13 @@
 'use client';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { motion } from 'motion/react';
-<<<<<<< HEAD
 import { Instagram } from 'lucide-react';
-import Script from 'next/script';
-=======
->>>>>>> parent of df384ac8 (Feature: Added asymmetric Instagram 'The Vibe' grid to OurStory section)
 
 export default function OurStorySection() {
   return (
     <section className="py-24 overflow-hidden" id="our-story">
       <div className="max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-16 items-center">
-        <motion.div
+        <motion.div 
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -21,14 +17,14 @@ export default function OurStorySection() {
           {/* Animated organic background shapes */}
           <div className="absolute inset-0 bg-[#173018]/5 rounded-[60%_40%_30%_70%_/_60%_30%_70%_40%] animate-[spin_20s_linear_infinite] scale-105"></div>
           <div className="absolute inset-0 bg-[#705d00]/5 rounded-[40%_60%_70%_30%_/_40%_70%_30%_60%] animate-[spin_25s_linear_infinite_reverse] scale-95"></div>
-
+          
           {/* Central organic image shape */}
           <div className="relative bg-[#eeeeee] rounded-[50%_50%_40%_60%_/_60%_40%_50%_50%] h-80 w-80 md:h-96 md:w-96 flex items-center justify-center overflow-hidden shadow-sm border border-[#173018]/5">
-            <img src="/OurStory.png" alt="Kanda Our Story" className="w-full h-full object-cover" />
+             <img src="/OurStory.png" alt="Kanda Our Story" className="w-full h-full object-cover" />
           </div>
         </motion.div>
-
-        <motion.div
+        
+        <motion.div 
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -36,11 +32,11 @@ export default function OurStorySection() {
           className="space-y-8"
         >
           <h2 className="font-headline font-extrabold text-5xl md:text-7xl text-[#173018] uppercase tracking-tighter leading-none">
-            Nuestra<br />Historia
+            Nuestra<br/>Historia
           </h2>
-
+          
           <div className="w-16 h-1 bg-[#705d00]"></div>
-
+          
           <div className="space-y-6 font-body text-lg text-[#434841] leading-relaxed">
             <p>
               Kanda nació de la búsqueda de un refugio en medio del bullicio urbano. Un espacio donde el tiempo se detiene, diseñado para elevar tus sentidos a través de la pureza botánica y el grano perfecto.
@@ -54,11 +50,10 @@ export default function OurStorySection() {
           </div>
         </motion.div>
       </div>
-<<<<<<< HEAD
 
       {/* Instagram Grid Section */}
       <div className="max-w-7xl mx-auto px-8 mt-32">
-        <motion.div
+        <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
@@ -75,67 +70,40 @@ export default function OurStorySection() {
           </a>
         </motion.div>
 
-        <motion.div
+        <motion.div 
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]"
         >
-          {/* Instrucción: Reemplaza estas URLs con los enlaces reales de las fotos de tu Instagram */}
-          {[
-            "https://www.instagram.com/p/DW2PQCCCZUc",
-            "https://www.instagram.com/p/DWugTr5ibtR",
-            "https://www.instagram.com/p/DVj4YujCcZ5"
-          ].map((url, idx) => (
-            <div key={idx} className="w-full max-w-[328px] overflow-hidden rounded-2xl shadow-sm border border-[#173018]/10 bg-white">
-              <InstagramEmbedNative url={url} />
+          {/* Asymmetric Grid Layout */}
+          <a href="https://www.instagram.com/kanda_vedado/" target="_blank" rel="noopener noreferrer" className="relative group overflow-hidden rounded-2xl md:col-span-2 md:row-span-2">
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
+              <Instagram className="text-white w-10 h-10" />
             </div>
-          ))}
+            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1447&auto=format&fit=crop" alt="Coffee Vibe 1" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+          </a>
+          <a href="https://www.instagram.com/kanda_vedado/" target="_blank" rel="noopener noreferrer" className="relative group overflow-hidden rounded-2xl md:col-span-1 md:row-span-1">
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
+              <Instagram className="text-white w-8 h-8" />
+            </div>
+            <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=1470&auto=format&fit=crop" alt="Coffee Vibe 2" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+          </a>
+          <a href="https://www.instagram.com/kanda_vedado/" target="_blank" rel="noopener noreferrer" className="relative group overflow-hidden rounded-2xl md:col-span-1 md:row-span-2">
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
+              <Instagram className="text-white w-8 h-8" />
+            </div>
+            <img src="https://res.cloudinary.com/dtajpvp8x/image/upload/q_auto/f_auto/v1775596726/matchaLatte_vkc16n.png" alt="Matcha" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+          </a>
+          <a href="https://www.instagram.com/kanda_vedado/" target="_blank" rel="noopener noreferrer" className="relative group overflow-hidden rounded-2xl md:col-span-1 md:row-span-1">
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
+              <Instagram className="text-white w-8 h-8" />
+            </div>
+            <img src="https://res.cloudinary.com/dtajpvp8x/image/upload/q_auto/f_auto/v1775596727/toastBenedicto_ggbrwn.png" alt="Toast" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+          </a>
         </motion.div>
       </div>
-=======
->>>>>>> parent of df384ac8 (Feature: Added asymmetric Instagram 'The Vibe' grid to OurStory section)
     </section>
   );
-}
-
-function InstagramEmbedNative({ url }: { url: string }) {
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.instgrm) {
-      window.instgrm.Embeds.process();
-    }
-  }, []);
-
-  return (
-    <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-      <blockquote
-        className="instagram-media"
-        data-instgrm-permalink={url}
-        data-instgrm-version="14"
-        style={{
-          background: '#FFF',
-          border: '0',
-          borderRadius: '3px',
-          boxShadow: 'none',
-          margin: '0',
-          maxWidth: '540px',
-          minWidth: '326px',
-          padding: '0',
-          width: '99.375%',
-        }}
-      ></blockquote>
-      <Script src="//www.instagram.com/embed.js" strategy="lazyOnload" />
-    </div>
-  );
-}
-
-declare global {
-  interface Window {
-    instgrm?: {
-      Embeds: {
-        process: () => void;
-      };
-    };
-  }
 }
