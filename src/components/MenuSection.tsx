@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Star, WheatOff, Leaf } from 'lucide-react';
+import { Star, Leaf } from 'lucide-react';
 
 const menuData = [
   {
@@ -12,7 +12,7 @@ const menuData = [
         title: "Toasts",
         description: "Pan rústico tostado con toque verde y aceite de oliva",
         items: [
-          { name: "Aguacate y Huevos", price: "$1500", description: "2 huevos, aguacate, rúcula, tomate, lechuga, relish, mayonesa saborizada", isGF: true },
+          { name: "Aguacate y Huevos", price: "$1500", description: "2 huevos, aguacate, rúcula, tomate, lechuga, relish, mayonesa saborizada" },
           { name: "Benedicto", price: "$1900", description: "Huevos, salsa holandesa, queso gouda, lechuga, tomate, rúcula", isFeatured: true },
           { name: "Salame, Queso y Huevos", price: "$2250", description: "Salame, huevo, queso gouda, rúcula, tomate" },
           { name: "Avocado Toast", price: "$1000", description: "Aguacate, rúcula, tomate, lechuga, relish, mayonesa saborizada", isVegan: true },
@@ -220,7 +220,6 @@ const ExpandableItemList = ({ items, isSubcategory = false }: { items: any[], is
               <div className="flex items-center gap-2">
                 <h4 className={`font-body font-semibold text-[#173018] uppercase tracking-wide ${isSubcategory ? 'text-base' : 'text-lg'}`}>{item.name}</h4>
                 {item.isFeatured && <Star className="w-4 h-4 text-[#705d00] fill-[#705d00]" />}
-                {item.isGF && <WheatOff className="w-4 h-4 text-[#c3c8be]" />}
                 {item.isVegan && <Leaf className="w-4 h-4 text-[#c3c8be]" />}
               </div>
               {item.description && <p className="font-body font-light text-[#434841] text-sm mt-1">{item.description}</p>}
