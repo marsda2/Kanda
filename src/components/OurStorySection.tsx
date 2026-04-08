@@ -1,8 +1,8 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Instagram } from 'lucide-react';
-import { InstagramEmbed } from 'react-social-media-embed';
+import Script from 'next/script';
 
 export default function OurStorySection() {
   return (
@@ -85,11 +85,51 @@ export default function OurStorySection() {
             "https://www.instagram.com/reel/DVj4YujCcZ5"
           ].map((url, idx) => (
             <div key={idx} className="w-full max-w-[328px] overflow-hidden rounded-2xl shadow-sm border border-[#173018]/10 bg-white">
-              <InstagramEmbed url={url} width="100%" />
+              <InstagramEmbedNative url={url} />
             </div>
           ))}
         </motion.div>
       </div>
     </section>
   );
+}
+
+function InstagramEmbedNative({ url }: { url: string }) {
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.instgrm) {
+      window.instgrm.Embeds.process();
+    }
+  }, []);
+
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+      <blockquote
+        className="instagram-media"
+        data-instgrm-permalink={url}
+        data-instgrm-version="14"
+        style={{
+          background: '#FFF',
+          border: '0',
+          borderRadius: '3px',
+          boxShadow: 'none',
+          margin: '0',
+          maxWidth: '540px',
+          minWidth: '326px',
+          padding: '0',
+          width: '99.375%',
+        }}
+      ></blockquote>
+      <Script src="//www.instagram.com/embed.js" strategy="lazyOnload" />
+    </div>
+  );
+}
+
+declare global {
+  interface Window {
+    instgrm?: {
+      Embeds: {
+        process: () => void;
+      };
+    };
+  }
 }
