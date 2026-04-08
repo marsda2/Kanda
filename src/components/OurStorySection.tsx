@@ -2,6 +2,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Instagram } from 'lucide-react';
+import { InstagramEmbed } from 'react-social-media-embed';
 
 export default function OurStorySection() {
   return (
@@ -75,33 +76,18 @@ export default function OurStorySection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center"
         >
-          {/* Asymmetric Grid Layout */}
-          <a href="https://www.instagram.com/kanda_vedado/" target="_blank" rel="noopener noreferrer" className="relative group overflow-hidden rounded-2xl md:col-span-2 md:row-span-2">
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
-              <Instagram className="text-white w-10 h-10" />
+          {/* Instrucción: Reemplaza estas URLs con los enlaces reales de las fotos de tu Instagram */}
+          {[
+            "https://www.instagram.com/p/C_q8WqCMy4t/",
+            "https://www.instagram.com/p/C_iJ6XvM4gZ/",
+            "https://www.instagram.com/p/C_fPZiIMlRn/"
+          ].map((url, idx) => (
+            <div key={idx} className="w-full max-w-[328px] overflow-hidden rounded-2xl shadow-sm border border-[#173018]/10 bg-white">
+              <InstagramEmbed url={url} width="100%" />
             </div>
-            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1447&auto=format&fit=crop" alt="Coffee Vibe 1" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-          </a>
-          <a href="https://www.instagram.com/kanda_vedado/" target="_blank" rel="noopener noreferrer" className="relative group overflow-hidden rounded-2xl md:col-span-1 md:row-span-1">
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
-              <Instagram className="text-white w-8 h-8" />
-            </div>
-            <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=1470&auto=format&fit=crop" alt="Coffee Vibe 2" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-          </a>
-          <a href="https://www.instagram.com/kanda_vedado/" target="_blank" rel="noopener noreferrer" className="relative group overflow-hidden rounded-2xl md:col-span-1 md:row-span-2">
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
-              <Instagram className="text-white w-8 h-8" />
-            </div>
-            <img src="https://res.cloudinary.com/dtajpvp8x/image/upload/q_auto/f_auto/v1775596726/matchaLatte_vkc16n.png" alt="Matcha" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-          </a>
-          <a href="https://www.instagram.com/kanda_vedado/" target="_blank" rel="noopener noreferrer" className="relative group overflow-hidden rounded-2xl md:col-span-1 md:row-span-1">
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
-              <Instagram className="text-white w-8 h-8" />
-            </div>
-            <img src="https://res.cloudinary.com/dtajpvp8x/image/upload/q_auto/f_auto/v1775596727/toastBenedicto_ggbrwn.png" alt="Toast" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-          </a>
+          ))}
         </motion.div>
       </div>
     </section>
