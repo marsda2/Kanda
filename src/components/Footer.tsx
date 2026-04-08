@@ -54,8 +54,11 @@ export default function Footer() {
           <p className="text-sm font-body text-[#1a1c1c]/70">
             Hoy estamos {mounted ? (isOpen() ? <span className="text-green-600 font-bold">abiertos</span> : <span className="text-red-600 font-bold">cerrados</span>) : <span className="opacity-0">cerrados</span>} (9 a.m. – 9 p.m.)
           </p>
+          <p className="text-sm font-body text-[#1a1c1c]/70">
+            <a href="mailto:Kandahoreca@gmail.com" className="hover:text-[#705d00] transition-colors">Kandahoreca@gmail.com</a>
+          </p>
           <div className="flex gap-4">
-            <a className="text-[#1a1c1c]/70 hover:opacity-80 transition-opacity" href="#">Instagram</a>
+            <a className="text-[#1a1c1c]/70 hover:text-[#705d00] transition-colors" href="#">Instagram</a>
           </div>
         </div>
         <div className="flex flex-wrap gap-x-20 gap-y-12">
