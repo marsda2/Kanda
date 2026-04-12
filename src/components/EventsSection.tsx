@@ -1,7 +1,8 @@
 'use client';
-import React from 'react';
-import { motion } from 'motion/react';
-import { CalendarDays, MapPin, Clock, ArrowRight, Dog, PenTool } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { CalendarDays, MapPin, Clock, ArrowRight, Dog, PenTool, X, Check, Loader2 } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 
 const events = [
   {
@@ -37,6 +38,35 @@ const events = [
 ];
 
 export default function EventsSection() {
+  const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !selectedEvent) return;
+
+    setStatus('loading');
+    try {
+      const { error } = await supabase
+        .from('event_reservations')
+        .insert([{ email, event_title: selectedEvent }]);
+
+      if (error) throw error;
+      
+      setStatus('success');
+      setTimeout(() => {
+        setStatus('idle');
+        setSelectedEvent(null);
+        setEmail('');
+      }, 3000);
+    } catch (err) {
+      console.error('Error reserving event:', err);
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 3000);
+    }
+  };
+
   return (
     <section className="py-32 bg-[#f9f9f9]">
       <div className="max-w-7xl mx-auto px-8">
@@ -113,20 +143,100 @@ export default function EventsSection() {
                   </ul>
                 </div>
                 
-                <a 
-                  href="https://www.instagram.com/kanda_vedado/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="block w-full text-center bg-[#173018] text-white py-4 rounded-xl font-bold uppercase text-xs tracking-widest hover:bg-[#705d00] transition-colors flex items-center justify-center gap-2"
+                <button 
+                  onClick={() => setSelectedEvent(event.title)}
+                  className="w-full text-center bg-[#173018] text-white py-4 rounded-xl font-bold uppercase text-xs tracking-widest hover:bg-[#705d00] transition-colors flex items-center justify-center gap-2"
                 >
-                  Reservar Cupo al DM <ArrowRight className="w-4 h-4" />
-                </a>
-                <p className="text-center text-[#434841]/60 text-xs mt-4 mt-3">Cupos limitados</p>
+                  Reservar Cupo <ArrowRight className="w-4 h-4" />
+                </button>
+                <p className="text-center text-[#434841]/60 text-xs mt-4">Cupos limitados</p>
               </div>
             </motion.div>
           ))}
         </div>
       </div>
+
+      {/* Reservation Modal */}
+      <AnimatePresence>
+        {selectedEvent && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedEvent(null)}
+              className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            ></motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="relative w-full max-w-md bg-white rounded-3xl p-8 shadow-2xl"
+            >
+              <button 
+                onClick={() => setSelectedEvent(null)}
+                className="absolute top-6 right-6 text-[#1a1c1c]/50 hover:text-[#173018] transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+              
+              <div className="mb-8">
+                <span className="text-[#705d00] font-bold tracking-widest uppercase text-xs mb-2 block">Reserva de Cupo</span>
+                <h3 className="font-headline font-bold text-2xl text-[#173018] leading-tight pr-8">
+                  {selectedEvent}
+                </h3>
+              </div>
+
+              {status === 'success' ? (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex flex-col items-center justify-center py-8 text-center space-y-4"
+                >
+                  <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center">
+                    <Check className="w-8 h-8 text-green-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-headline font-bold text-xl text-[#173018] mb-2">¡Solicitud Recibida!</h4>
+                    <p className="text-[#434841] text-sm">Te contactaremos pronto a tu correo con los detalles para finalizar tu inscripción.</p>
+                  </div>
+                </motion.div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <p className="text-sm font-body text-[#434841]">
+                    Déjanos tu correo electrónico y nuestro equipo se pondrá en contacto contigo a la brevedad.
+                  </p>
+                  <div>
+                    <input 
+                      type="email" 
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="tu@email.com"
+                      className="w-full bg-[#eeeeee] border border-transparent focus:border-[#705d00] rounded-xl px-4 py-3 font-body text-sm outline-none transition-colors"
+                    />
+                  </div>
+                  
+                  {status === 'error' && (
+                    <p className="text-xs text-red-500 font-medium text-center">
+                      Ocurrió un error. Verifica tu conexión e inténtalo de nuevo.
+                    </p>
+                  )}
+
+                  <button 
+                    type="submit"
+                    disabled={status === 'loading'}
+                    className="w-full bg-[#173018] text-white py-4 rounded-xl font-bold uppercase text-xs tracking-widest hover:bg-[#705d00] transition-colors disabled:opacity-70 flex justify-center items-center"
+                  >
+                    {status === 'loading' ? <Loader2 className="w-5 h-5 animate-spin" /> : "Solicitar Cupo"}
+                  </button>
+                </form>
+              )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
