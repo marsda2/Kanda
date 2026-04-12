@@ -59,6 +59,7 @@ export default function Header() {
             <Link className={getLinkClass("/")} href="/">Menu</Link>
             <Link className={getLinkClass("/locations")} href="/locations">Locations</Link>
             <Link className={getLinkClass("/our-story")} href="/our-story">Our Story</Link>
+            <Link className={getLinkClass("/comunidad")} href="/comunidad">Comunidad</Link>
           </div>
 
           <div className="hidden md:block">
@@ -103,6 +104,7 @@ export default function Header() {
               <Link onClick={() => setIsMobileMenuOpen(false)} className={getMobileLinkClass("/")} href="/">Menu</Link>
               <Link onClick={() => setIsMobileMenuOpen(false)} className={getMobileLinkClass("/locations")} href="/locations">Locations</Link>
               <Link onClick={() => setIsMobileMenuOpen(false)} className={getMobileLinkClass("/our-story")} href="/our-story">Our Story</Link>
+              <Link onClick={() => setIsMobileMenuOpen(false)} className={getMobileLinkClass("/comunidad")} href="/comunidad">Comunidad</Link>
               
               <div className="pt-12">
                 <button 
