@@ -1,8 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
 import "../index.css";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
   title: "Kanda - La Pausa Perfecta",
@@ -17,11 +15,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className="bg-[#f9f9f9] text-[#1a1c1c] font-body min-h-screen flex flex-col">
-          <Header />
-          <main className="pt-32 flex-grow">
-            {children}
-          </main>
-          <Footer />
+        {children}
       </body>
     </html>
   );

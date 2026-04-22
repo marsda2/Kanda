@@ -50,7 +50,19 @@ async function middleware(request) {
         }
     });
     // Refresh session if needed
-    await supabase.auth.getUser();
+    const { data: { user } } = await supabase.auth.getUser();
+    // Protect admin routes (except /admin/login)
+    const isAdminRoute = request.nextUrl.pathname.startsWith('/admin');
+    const isLoginPage = request.nextUrl.pathname === '/admin/login';
+    if (isAdminRoute && !isLoginPage && !user) {
+        const loginUrl = new URL('/admin/login', request.url);
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$spec$2d$extension$2f$response$2e$js__$5b$middleware$2d$edge$5d$__$28$ecmascript$29$__["NextResponse"].redirect(loginUrl);
+    }
+    // If already logged in and visiting login page, redirect to admin
+    if (isLoginPage && user) {
+        const adminUrl = new URL('/admin', request.url);
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$spec$2d$extension$2f$response$2e$js__$5b$middleware$2d$edge$5d$__$28$ecmascript$29$__["NextResponse"].redirect(adminUrl);
+    }
     return supabaseResponse;
 }
 const config = {

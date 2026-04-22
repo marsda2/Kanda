@@ -34,7 +34,22 @@ export async function middleware(request: NextRequest) {
   );
 
   // Refresh session if needed
-  await supabase.auth.getUser();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  // Protect admin routes (except /admin/login)
+  const isAdminRoute = request.nextUrl.pathname.startsWith('/admin');
+  const isLoginPage = request.nextUrl.pathname === '/admin/login';
+
+  if (isAdminRoute && !isLoginPage && !user) {
+    const loginUrl = new URL('/admin/login', request.url);
+    return NextResponse.redirect(loginUrl);
+  }
+
+  // If already logged in and visiting login page, redirect to admin
+  if (isLoginPage && user) {
+    const adminUrl = new URL('/admin', request.url);
+    return NextResponse.redirect(adminUrl);
+  }
 
   return supabaseResponse;
 }
