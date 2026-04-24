@@ -134,7 +134,7 @@ export default function RecommendationsManager() {
                   <ImageIcon className="w-12 h-12" />
                 </div>
               )}
-              <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 backdrop-blur p-1.5 rounded-xl">
+              <div className="absolute top-3 right-3 flex gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity bg-white/90 backdrop-blur p-1.5 rounded-xl shadow-sm md:shadow-none">
                 <button onClick={() => setEditingRec({ ...rec })} className="p-1.5 text-[#434841] hover:text-[#705d00] transition-colors"><Pencil className="w-4 h-4" /></button>
                 <button onClick={() => setDeleteConfirm(rec.id)} className="p-1.5 text-[#434841] hover:text-red-500 transition-colors"><Trash2 className="w-4 h-4" /></button>
               </div>

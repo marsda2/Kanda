@@ -288,7 +288,7 @@ function ItemRow({ item, compact, onEdit, onDelete }: { item: MenuItem; compact?
       </div>
       <div className="flex items-center gap-3 shrink-0">
         <span className="font-headline text-sm text-[#173018]">{item.price}</span>
-        <div className="flex gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+        <div className="flex gap-0.5 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
           <button onClick={onEdit} className="p-1.5 text-[#434841] hover:text-[#705d00] transition-colors"><Pencil className="w-3.5 h-3.5" /></button>
           <button onClick={onDelete} className="p-1.5 text-[#434841] hover:text-red-500 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
         </div>
