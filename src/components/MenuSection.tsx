@@ -70,18 +70,21 @@ export default function MenuSection() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
   const [items, setItems] = useState<MenuItem[]>([]);
+  const [recommendations, setRecommendations] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchMenu = async () => {
-      const [cRes, sRes, iRes] = await Promise.all([
+      const [cRes, sRes, iRes, rRes] = await Promise.all([
         supabase.from('menu_categories').select('*').order('sort_order'),
         supabase.from('menu_subcategories').select('*').order('sort_order'),
         supabase.from('menu_items').select('*').order('sort_order'),
+        supabase.from('recommendations').select('*').order('sort_order'),
       ]);
       setCategories(cRes.data || []);
       setSubcategories(sRes.data || []);
       setItems(iRes.data || []);
+      setRecommendations(rRes.data || []);
       setLoading(false);
     };
     fetchMenu();
@@ -124,10 +127,10 @@ export default function MenuSection() {
           </div>
           <div className="flex overflow-hidden pb-8 -mx-8 px-8 w-[calc(100%+4rem)] group">
             <div className="flex items-center gap-6 w-max animate-marquee hover:[animation-play-state:paused]">
-              {[...featuredItems, ...featuredItems].map((item, idx) => (
+              {[...(recommendations.length > 0 ? recommendations : featuredItems), ...(recommendations.length > 0 ? recommendations : featuredItems)].map((item, idx) => (
                 <div key={idx} className="w-[340px] md:w-[500px] flex flex-row bg-[#eeeeee] rounded-2xl overflow-hidden shadow-sm h-[180px] md:h-[220px] shrink-0">
                   <div className="w-2/5 md:w-5/12 h-full overflow-hidden shrink-0">
-                    <img src={item.image} alt={item.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" referrerPolicy="no-referrer" />
+                    <img src={item.image_url || item.image} alt={item.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" referrerPolicy="no-referrer" />
                   </div>
                   <div className="w-3/5 md:w-7/12 p-5 md:p-6 flex flex-col justify-center space-y-2 md:space-y-3">
                     <div className="flex flex-col xl:flex-row xl:justify-between xl:items-start gap-1 xl:gap-4">

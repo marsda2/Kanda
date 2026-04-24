@@ -3,6 +3,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Plus, Pencil, Trash2, Save, X, Loader2, Star, Leaf, ChevronDown, ChevronRight } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
+import RecommendationsManager from './RecommendationsManager';
 
 interface Category { id: string; title: string; description: string | null; sort_order: number; }
 interface Subcategory { id: string; category_id: string; title: string; description: string | null; sort_order: number; }
@@ -108,13 +109,16 @@ export default function MenuManager() {
   if (loading) return <div className="flex justify-center py-20"><Loader2 className="w-8 h-8 animate-spin text-[#173018]" /></div>;
 
   return (
-    <div className="space-y-6">
-      {/* Add Category Button */}
-      <div className="flex justify-end">
-        <button onClick={() => setEditingCat({ _isNew: true, title: '', description: '' })} className="flex items-center gap-2 bg-[#173018] text-white px-5 py-2.5 rounded-xl font-headline font-bold text-xs uppercase tracking-widest hover:bg-[#2D472C] transition-colors">
-          <Plus className="w-4 h-4" /> Nueva Categoría
-        </button>
-      </div>
+    <div className="space-y-12">
+      <RecommendationsManager />
+      
+      <div className="space-y-6">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="font-headline font-bold text-2xl text-[#173018] uppercase tracking-tight">Categorías del Menú</h2>
+          <button onClick={() => setEditingCat({ _isNew: true, title: '', description: '' })} className="flex items-center gap-2 bg-[#173018] text-white px-5 py-2.5 rounded-xl font-headline font-bold text-xs uppercase tracking-widest hover:bg-[#2D472C] transition-colors">
+            <Plus className="w-4 h-4" /> Nueva Categoría
+          </button>
+        </div>
 
       {/* Categories List */}
       {categories.map(cat => {
@@ -267,6 +271,7 @@ export default function MenuManager() {
           </div>
         </Modal>
       )}
+      </div>
     </div>
   );
 }
